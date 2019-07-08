@@ -38,3 +38,4 @@ litenote-full-linux64.tar.gz: litenote-tk-linux64
 	cd litenote-full-linux64; cp ../litenote-tk-linux64 litenote-gui
 	tar cvzf $@ litenote-full-linux64
 	rm -rf litenote-full-linux64
+

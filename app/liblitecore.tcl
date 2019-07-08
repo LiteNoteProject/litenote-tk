@@ -85,20 +85,21 @@ namespace eval CoreRPC {
 		set ok 0
 		foreach itm $utxo {
 			puts stderr "Debug: utxo amount: [dict get $itm amount]"
-			if {[dict get $itm amount] > ($fee * 2) && ![info exists ::CoreRPC::used([dict get $itm txid])] && [dict get $itm safe]} {
+			if {[dict get $itm amount] > ($fee * 2.5) && ![info exists ::CoreRPC::used([dict get $itm txid])] && [dict get $itm safe]} {
 				set utxo $itm
 				set ok 1
 				break
 			}
 		}
 		if {!$ok} {
-			error "Insufficient funds to send message"
+			easysendtoaddress $from [expr {$fee * 5}]
+			error "An error occurred while sending your message. Try again in a few minutes."
 		}
 		set caddr [getrawchangeaddress]
-		set retamt [math::decimal::tostr [math::decimal::- [math::decimal::fromstr [dict get $utxo amount]] [math::decimal::fromstr $fee]]]
+		set retamt [math::decimal::tostr [math::decimal::- [math::decimal::fromstr [dict get $utxo amount]] [math::decimal::fromstr [expr {$fee * 2}]]]]
 		puts $itm
 		set rawtx [createrawtransaction "\[{\"txid\":\"[dict get $utxo txid]\", \"vout\":[dict get $utxo vout]}\]" \
-						"{\"data\":\"$payload\", \"$caddr\": \"$retamt\"}"]
+						"{\"data\":\"$payload\", \"$caddr\": \"$retamt\", \"$to\":\"$fee\"}"]
 		set signedtx [signrawtransactionwithwallet $rawtx]
 		puts [sendrawtransaction [dict get $signedtx hex]] ;# wew that was a lot of work
 		set ::CoreRPC::used([dict get $utxo txid]) 1
