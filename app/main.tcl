@@ -278,7 +278,7 @@ ttk::label .tabs.home.me.lblAddress -text [mc "Primary Address:"] -font {{} 12 b
 ttk::entry .tabs.home.me.address -width 40 -textvariable vPrimaryAddress
 ttk::label .tabs.home.me.lblBalance -text [mc "Balance:"] -font {{} 12 bold}
 ttk::label .tabs.home.me.balance -textvariable vBalance
-ttk::label .tabs.home.me.lblBalanceAfter -text "XRN" -font {{} 12 bold}
+ttk::label .tabs.home.me.lblBalanceAfter -text "RSL" -font {{} 12 bold}
 
 grid x .tabs.home.me.lblAddress .tabs.home.me.address \
 	.tabs.home.me.lblBalance .tabs.home.me.balance \
