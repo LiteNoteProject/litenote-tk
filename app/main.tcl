@@ -75,6 +75,7 @@ if {[dict get $params with-litenote-core] ne "no" && [catch {CoreRPC::getblockch
 		"--rpcpassword=[dict get $params core-password]" \
 		"--rpcuser=[dict get $params core-username]" \
 		"--fallbackfee=0.0001" \
+		"--changetype=legacy" \
 		{*}[dict get $params core-args]]
 	puts stderr "with-litenote-core: invoke: $coreCmd"
 	if {$tcl_platform(platform) eq "windows"} {
