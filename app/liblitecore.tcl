@@ -37,8 +37,7 @@ namespace eval CoreRPC {
 		JSONRPC::create getaddressesbylabel -proxy $url -params {label string}
 		JSONRPC::create getnewaddress -proxy $url -params {label string type string}
 		JSONRPC::create dumpprivkey -proxy $url -params {address string}
-		JSONRPC::create sendtoaddress -proxy $url -params {address string amount string comment string comment_to string
-									subtractfeefromamount boolean replaceable boolean}
+		JSONRPC::create sendtoaddress -proxy $url -params {address string amount string}
 		JSONRPC::create gettransaction -proxy $url -params {txid string}
 		JSONRPC::create estimatesmartfee -proxy $url -params {conf_target int}
 		JSONRPC::create generate -proxy $url -params {nblocks int} -command {set ::CoreRPC::generateCallback}
@@ -52,15 +51,11 @@ namespace eval CoreRPC {
 		_messageindexingservice
 	}
 	proc easysendtoaddress {address amount {target 4}} {
-		set fee 0.0001
-		catch {
-			set fee [dict get [estimatesmartfee $target] feerate]
-		}
-		sendtoaddress $address $amount "" "" 0 0
+		sendtoaddress $address $amount
 	}
 	proc sendmessage {to subject body {encrypt 0} {from ""} {target 4}} {
 		if {$to eq ""} {error "You need to enter a recipient address"}
-		set fee 0.0001
+		set fee 0.001
 		catch {
 			set fee [dict get [estimatesmartfee $target] feerate]
 		}
