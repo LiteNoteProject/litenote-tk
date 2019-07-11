@@ -1,4 +1,4 @@
-RELEASE_URL := https://github.com/LiteNoteProject/litenote-builds/releases/download/v0.17.1/
+RELEASE_URL := https://github.com/LiteNoteProject/litenote-builds/releases/download/0.17.1b/
 
 all-zip: litenote-full-win64.zip litenote-full-linux64.tar.gz
 all-exe: litenote-tk-win64.exe litenote-tk-linux64

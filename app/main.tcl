@@ -1,7 +1,7 @@
 if {![info exists ::env(HOME)]} {
 	set ::env(HOME) $::env(USERPROFILE)
 }
-set __VERSION__ 1.0.17.1
+set __VERSION__ 2.0.17.1b-new
 set __SRCDIR__ [file dirname [info script]]
 if {![info exists __WRAPPED__]} {set __WRAPPED__ [file exists [info nameofexecutable]/app/main.tcl]}
 set __WLIBDIR__ [info nameofexecutable]
