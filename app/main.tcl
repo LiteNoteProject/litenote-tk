@@ -19,8 +19,8 @@ if {$tcl_platform(platform) eq "windows"} {
 
 puts stderr "Pre-initialization sequence..."
 package require Tk
-package require Iwidgets
 ttk::setTheme Arc
+package require Tix
 package require msgcat
 package require tablelist
 namespace import msgcat::*
@@ -121,12 +121,12 @@ proc doSendMessage {{to ""} {subject ""} {body ""}} {
 	ttk::entry $instance.f.hdr.to -textvariable to$instance -width 50
 	ttk::label $instance.f.hdr.lblSubj -text [mc "Subject"]
 	ttk::entry $instance.f.hdr.subj -textvariable subject$instance -width 50
-	ttk::button $instance.f.hdr.send -text [mc "Send"] -command "set ::body$instance \[$instance.f.body get 1.0 end\]; destroy $instance; set ::send$instance 1"
+	ttk::button $instance.f.hdr.send -text [mc "Send"] -command "set ::body$instance \[$instance.f.body.text get 1.0 end\]; destroy $instance; set ::send$instance 1"
 	grid $instance.f.hdr.lblTo $instance.f.hdr.to
 	grid $instance.f.hdr.lblSubj $instance.f.hdr.subj $instance.f.hdr.send
 	pack $instance.f.hdr -fill x
-	iwidgets::scrolledtext $instance.f.body
-	$instance.f.body insert 1.0 [set ::body$instance]
+	tixScrolledText $instance.f.body
+	$instance.f.body.text insert 1.0 [set ::body$instance]
 	pack $instance.f.body -fill both -expand 1
 	pack $instance.f -expand 1 -fill both
 	tkwait window $instance
@@ -170,8 +170,8 @@ proc doDisplayMessage msg {
 	grid $instance.f.hdr.lblFrom $instance.f.hdr.from
 	grid $instance.f.hdr.lblSubj $instance.f.hdr.subj $instance.f.hdr.send
 	pack $instance.f.hdr -fill x
-	iwidgets::scrolledtext $instance.f.body
-	$instance.f.body insert 1.0 [set ::body$instance]
+	tixScrolledText $instance.f.body
+	$instance.f.body.text insert 1.0 [set ::body$instance]
 	pack $instance.f.body -fill both -expand 1
 	pack $instance.f -expand 1 -fill both
 	tkwait window $instance
